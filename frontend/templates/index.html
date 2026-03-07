@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<title>Deepfake Detector</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Deepfake Detection System</h1>
+
+<form action="/predict" method="post" enctype="multipart/form-data">
+
+<input type="file" name="video" accept="video/*" required>
+
+<br><br>
+
+<button type="submit">Upload & Analyze</button>
+
+</form>
+
+
+{% if frames %}
+
+<h2>Extracted Frames</h2>
+
+<div class="frame-grid">
+
+{% for frame in frames %}
+
+<img src="{{ frame }}">
+
+{% endfor %}
+
+</div>
+
+{% endif %}
+
+
+{% if prediction %}
+
+<div class="result">
+
+<h2>Prediction: {{ prediction }}</h2>
+
+<p><strong>Confidence:</strong> {{ confidence }}%</p>
+
+<p><strong>Fake Probability:</strong> {{ fake_prob }}%</p>
+
+<p><strong>Real Probability:</strong> {{ real_prob }}%</p>
+
+<div class="probability-bar">
+
+<div class="fake-bar" style="width: {{ fake_prob }}%"></div>
+
+</div>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>
